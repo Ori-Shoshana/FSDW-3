@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameSphere - Login</title>
+    <link rel="stylesheet" href="../Client/css/style.css">
+    <script src="../Client/js/index.js" charset="utf-8"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <form id="loginForm" onsubmit="return handleLogin()">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input id="username" type="text" placeholder="Username" required>
+            </div>
+            <div class="input-box">
+                <input id="password" type="password" placeholder="Password" required>
+            </div>
+            <button id = "loginButton" type="submit" class="btn">Login</button>
+            <div class="register-link">
+                <p>Don't have an account? <a href="../Client/html/registration.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
