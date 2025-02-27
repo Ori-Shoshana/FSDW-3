@@ -3,26 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameSphere - Login</title>
-    <link rel="stylesheet" href="../Client/css/style.css">
-    <script src="../Client/js/index.js" charset="utf-8"></script>
-
+    <title>GymSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
 </head>
 <body>
-    <div class="wrapper">
-        <form id="loginForm" onsubmit="return handleLogin()">
-            <h1>Login</h1>
-            <div class="input-box">
-                <input id="username" type="text" placeholder="Username" required>
-            </div>
-            <div class="input-box">
-                <input id="password" type="password" placeholder="Password" required>
-            </div>
-            <button id = "loginButton" type="submit" class="btn">Login</button>
-            <div class="register-link">
-                <p>Don't have an account? <a href="../Client/html/registration.html">Register</a></p>
-            </div>
-        </form>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">GymSphere</div>
+            <nav>
+                <ul>
+                    <li><a href="#login" data-page="login">Login</a></li>
+                    <li><a href="#register" data-page="register">Register</a></li>
+                    <li><a href="#home" data-page="home">Home</a></li>
+                    <li><a href="#profile" data-page="profile">Profile</a></li>
+                    <li><a href="#routines" data-page="routines">Routines</a></li>
+                    <li><a href="#exercises" data-page="exercises">Exercises</a></li>
+                    <li><a href="#settings" data-page="settings">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content" id="main-content">
+            <!-- Content will be loaded dynamically here -->
+        </main>
     </div>
+
+    <!-- Templates for different pages -->
+    <template id="login">
+        <div class="wrapper">
+            <form id="loginForm" onsubmit="return handleLogin()">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input id="username" type="text" placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <input id="password" type="password" placeholder="Password" required>
+                </div>
+                <button id="loginButton" type="submit" class="btn">Login</button>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="#register" data-page="register">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </template>
+
+    <template id="register">
+        <div class="wrapper">
+            <form id="registerForm" onsubmit="return handleRegistration()">
+                <h1>Register</h1>
+                <div class="input-box">
+                    <input id="fullname" type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-box">
+                    <input id="username" type="text" placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <input id="email" type="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input id="password" type="password" placeholder="Password" required>
+                </div>
+                <div class="input-box">
+                    <input id="confirmPassword" type="password" placeholder="Confirm Password" required>
+                </div>
+                <button id="registerButton" type="submit" class="btn">Register</button>
+                <div class="login-link">
+                    <p>Already have an account? <a href="#login" data-page="login">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </template>
+
+    <template id="home">
+        <h1>Welcome to GymSphere</h1>
+        <p>Your personalized fitness hub!</p>
+    </template>
+
+    <template id="profile">
+        <h1>Profile Page</h1>
+        <p>View and edit your profile here.</p>
+    </template>
+
+    <template id="routines">
+        <h1>Workout Routines</h1>
+        <p>Manage your training plans.</p>
+    </template>
+
+    <template id="exercises">
+        <h1>Exercises</h1>
+        <p>Explore and track exercises.</p>
+    </template>
+
+    <template id="settings">
+        <h1>Settings</h1>
+        <p>Adjust your preferences here.</p>
+    </template>
 </body>
 </html>
