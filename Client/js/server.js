@@ -1,23 +1,29 @@
-const Server = {
+const WorkoutServer = {
     handleRequest: (method, url, data, callback) => {
         const id = url.split('/').pop();
+
         if (method === 'GET' && id === "workouts") { // שליפת כל האימונים
-            const workouts = Database.getWorkouts();
-            callback({ status: 200, message: workouts });
-        } else if (method === 'GET' && id > 0) { // שליפת אימון מסוים
-            const workout = Database.getWorkout(id);
+            const workouts = WorkoutsDB.getWorkouts();
+            callback({ status: 201, message: workouts });
+
+        } else if (method === 'GET' && id > 0) { // שליפת אימון לפי מזהה (ID)
+            const workout = WorkoutsDB.getWorkout(id);
             callback({ status: 200, message: workout });
+
         } else if (method === 'POST') { // הוספת אימון חדש
             const workout = JSON.parse(data);
-            Database.addWorkout(workout);
+            WorkoutsDB.addWorkout(workout);
             callback({ status: 201, message: 'Workout added successfully' });
-        } else if (method === 'PUT') { // עדכון אימון
+
+        } else if (method === 'PUT') { // עריכת אימון קיים
             const workout = JSON.parse(data);
-            Database.editWorkout(id, workout);
-            callback({ status: 200, message: 'Workout updated successfully' });
+            WorkoutsDB.editWorkout(workout);
+            callback({ status: 201, message: 'Workout edited successfully' });
+
         } else if (method === 'DELETE') { // מחיקת אימון
-            Database.deleteWorkout(id);
+            WorkoutsDB.deleteWorkout(id);
             callback({ status: 200, message: 'Workout deleted successfully' });
+
         } else {
             callback({ status: 400, message: 'Invalid request' });
         }

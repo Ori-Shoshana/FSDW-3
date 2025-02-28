@@ -4,54 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ניהול אימונים</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/app.js" defer></script>
-    <script src="js/network.js" defer></script>
-    <script src="js/server.js" defer></script>
-    <script src="js/database.js" defer></script>
-    <script src="js/AuthServer.js" defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #workout-list { margin-top: 20px; }
+        .workout-item { border: 1px solid #ddd; padding: 10px; margin: 5px; display: inline-block; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/client.css">
 </head>
 <body>
-    <!-- עמוד התחברות -->
-    <div id="loginPage" class="page">
-        <h1>Login</h1>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+    <!-- Login Page -->
+    <div id="background" class="background">
+        <form id="loginPage" class="form-container page" onsubmit="loginUser(event)">
+            <h1>Login</h1>
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <div id="login-message" class="message"></div> 
+            <button type="submit" class="btn">Login</button>
+            <p class="switch-form">Not registered? <span id="link" onclick="navigateTo('registerPage')">Sign up here</span></p>
         </form>
-        <p>Not registered? <span onclick="navigateTo('registerPage')">Sign up here</span></p>
     </div>
-
-    <!-- עמוד הרשמה -->
-    <div id="registerPage" class="page hidden">
+        
+    <!-- Register Page -->
+    <div id="registerPage" class="form-container page hidden">
         <h1>Sign Up</h1>
-        <form id="registerForm">
-            <input type="text" id="reg-username" placeholder="Username" required>
-            <input type="email" id="reg-email" placeholder="Email" required>
-            <input type="password" id="reg-password" placeholder="Password" required>
-            <button type="submit">Sign Up</button>
+        <form id="signup-form" onsubmit="registerUser(event)">
+            <input type="text" placeholder="Username" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="number" id="age" placeholder="Enter your age" min="10" max="120" required>
+            
+            <!-- הוספת gender toggle -->
+            <div class="toggle-container">
+                <label class="toggle-label">Gender:</label>
+                <span id="gender-text">Male</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="gender-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <label>Fitness Goal:</label>
+            <select name="fitnessGoal">
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="endurance">Endurance</option>
+            </select>
+
+            <label>Membership Type:</label>
+            <select name="membershipType">
+                <option value="basic">Basic</option>
+                <option value="premium">Premium</option>
+                <option value="vip">VIP</option>
+            </select>
+
+            <button type="submit" class="btn">Sign Up</button>
         </form>
-        <p>Already have an account? <span onclick="navigateTo('loginPage')">Login here</span></p>
+        <p>Already have an account? <span id="link" onclick="navigateTo('loginPage')">Login here</span></p>
     </div>
 
-    <!-- עמוד אימונים -->
-    <div id="workoutsPage" class="page hidden">
-        <h1>💪 My Workouts</h1>
-        <div id="workoutsGrid"></div>
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page hidden">
+        <h1>💪 My Workout Dashboard</h1>
+        <div class="workouts-grid" id="workoutsGrid"></div>
         <button onclick="navigateTo('workoutManagementPage')">Manage Workouts</button>
         <button onclick="logoutUser()">Logout</button>
-    </div>
+    </div>    
 
-    <!-- עמוד ניהול אימונים -->
-    <div id="workoutManagementPage" class="page hidden">
-        <h1>Workout Management</h1>
-        <input type="text" id="workout-name" placeholder="Workout Name">
-        <input type="number" id="workout-duration" placeholder="Duration (minutes)" min="5" max="300">
+    <!-- Workout Management Page -->
+    <div id="workoutManagementPage" class="form-container page hidden">
+        <h1>Workout Management System</h1>
+        <input type="text" id="workout-name" placeholder="Enter workout name">
+        <input type="number" id="workout-duration" placeholder="Enter duration (minutes)" min="10" max="180">
+        <select id="workout-intensity">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <input type="text" id="workout-image" placeholder="Enter link to the workout image" required>
+        
+        <label>Workout Category:</label>
+        <div class="checkbox-container" id="workout-category">
+            <input type="checkbox" id="cardio" name="categories" value="cardio">
+            <label for="cardio">Cardio</label>
+            <input type="checkbox" id="strength" name="categories" value="strength">
+            <label for="strength">Strength</label>
+            <input type="checkbox" id="flexibility" name="categories" value="flexibility">
+            <label for="flexibility">Flexibility</label>
+        </div>
+        
         <button onclick="addWorkout()">Add Workout</button>
         <div id="workout-list"></div>
-        <button onclick="navigateTo('workoutsPage')">Back to Workouts</button>
+        <button onclick="navigateTo('dashboardPage')">Back to Workouts</button>
         <button onclick="logoutUser()">Logout</button>
     </div>
+
+    <!-- טעינת JavaScript בסוף כדי למנוע שגיאות -->
+    <script>
+        document.getElementById("gender-toggle").addEventListener("change", function() {
+            const genderText = document.getElementById("gender-text");
+            genderText.textContent = this.checked ? "Female" : "Male";
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem('currentUser')) {
+                navigateTo('dashboardPage');
+            } else {
+                navigateTo('loginPage');
+            }
+        });
+    </script>
+    <script src="js/client.js"></script>
+    <script src="js/network.js"></script>
+    <script src="js/AuthServer.js"></script>
+    <script src="js/DB.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/fajax.js"></script>
+    <script src="js/server.js"></script>
 </body>
 </html>

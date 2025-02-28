@@ -1,18 +1,21 @@
 const Network = {
     sendRequest: (method, url, data, callback) => {
+
         console.log(`Network: Sending ${method} request to ${url}`);
-        
-        const randomValue = Math.random(); // מספר רנדומלי בין 0 ל-1
-        if (randomValue < 0.2) { // השמטה בהסתברות של 20%
+
+        const randomValue = Math.random();  
+        if (randomValue < 0.5) { // השמטה בהסתברות של 10% עד 50%
             callback({ status: 0, message: 'Failed to fetch' });
             return;
         }
-        
+
         setTimeout(() => {
             if (url.startsWith('/api/workouts')) {
-                Server.handleRequest(method, url, data, callback);
+                WorkoutServer.handleRequest(method, url, data, callback);
             } else if (url.startsWith('/api/auth')) {
                 AuthServer.handleRequest(method, url, data, callback);
+            } else if (url.startsWith('/api/memberships')) {
+                MembershipServer.handleRequest(method, url, data, callback);
             } else {
                 callback({ status: 404, message: 'Not Found' });
             }
