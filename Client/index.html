@@ -1,103 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymSphere</title>
+    <title>ניהול אימונים</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/app.js" defer></script>
+    <script src="js/network.js" defer></script>
+    <script src="js/server.js" defer></script>
+    <script src="js/database.js" defer></script>
+    <script src="js/AuthServer.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="logo">GymSphere</div>
-            <nav>
-                <ul>
-                    <li><a href="#login" data-page="login">Login</a></li>
-                    <li><a href="#register" data-page="register">Register</a></li>
-                    <li><a href="#home" data-page="home">Home</a></li>
-                    <li><a href="#profile" data-page="profile">Profile</a></li>
-                    <li><a href="#routines" data-page="routines">Routines</a></li>
-                    <li><a href="#exercises" data-page="exercises">Exercises</a></li>
-                    <li><a href="#settings" data-page="settings">Settings</a></li>
-                </ul>
-            </nav>
-        </aside>
-        
-        <main class="main-content" id="main-content">
-            <!-- Content will be loaded dynamically here -->
-        </main>
+    <!-- עמוד התחברות -->
+    <div id="loginPage" class="page">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Not registered? <span onclick="navigateTo('registerPage')">Sign up here</span></p>
     </div>
 
-    <!-- Templates for different pages -->
-    <template id="login">
-        <div class="wrapper">
-            <form id="loginForm" onsubmit="return handleLogin()">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input id="username" type="text" placeholder="Username" required>
-                </div>
-                <div class="input-box">
-                    <input id="password" type="password" placeholder="Password" required>
-                </div>
-                <button id="loginButton" type="submit" class="btn">Login</button>
-                <div class="register-link">
-                    <p>Don't have an account? <a href="#register" data-page="register">Register</a></p>
-                </div>
-            </form>
-        </div>
-    </template>
+    <!-- עמוד הרשמה -->
+    <div id="registerPage" class="page hidden">
+        <h1>Sign Up</h1>
+        <form id="registerForm">
+            <input type="text" id="reg-username" placeholder="Username" required>
+            <input type="email" id="reg-email" placeholder="Email" required>
+            <input type="password" id="reg-password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <span onclick="navigateTo('loginPage')">Login here</span></p>
+    </div>
 
-    <template id="register">
-        <div class="wrapper">
-            <form id="registerForm" onsubmit="return handleRegistration()">
-                <h1>Register</h1>
-                <div class="input-box">
-                    <input id="fullname" type="text" placeholder="Full Name" required>
-                </div>
-                <div class="input-box">
-                    <input id="username" type="text" placeholder="Username" required>
-                </div>
-                <div class="input-box">
-                    <input id="email" type="email" placeholder="Email" required>
-                </div>
-                <div class="input-box">
-                    <input id="password" type="password" placeholder="Password" required>
-                </div>
-                <div class="input-box">
-                    <input id="confirmPassword" type="password" placeholder="Confirm Password" required>
-                </div>
-                <button id="registerButton" type="submit" class="btn">Register</button>
-                <div class="login-link">
-                    <p>Already have an account? <a href="#login" data-page="login">Login</a></p>
-                </div>
-            </form>
-        </div>
-    </template>
+    <!-- עמוד אימונים -->
+    <div id="workoutsPage" class="page hidden">
+        <h1>💪 My Workouts</h1>
+        <div id="workoutsGrid"></div>
+        <button onclick="navigateTo('workoutManagementPage')">Manage Workouts</button>
+        <button onclick="logoutUser()">Logout</button>
+    </div>
 
-    <template id="home">
-        <h1>Welcome to GymSphere</h1>
-        <p>Your personalized fitness hub!</p>
-    </template>
-
-    <template id="profile">
-        <h1>Profile Page</h1>
-        <p>View and edit your profile here.</p>
-    </template>
-
-    <template id="routines">
-        <h1>Workout Routines</h1>
-        <p>Manage your training plans.</p>
-    </template>
-
-    <template id="exercises">
-        <h1>Exercises</h1>
-        <p>Explore and track exercises.</p>
-    </template>
-
-    <template id="settings">
-        <h1>Settings</h1>
-        <p>Adjust your preferences here.</p>
-    </template>
+    <!-- עמוד ניהול אימונים -->
+    <div id="workoutManagementPage" class="page hidden">
+        <h1>Workout Management</h1>
+        <input type="text" id="workout-name" placeholder="Workout Name">
+        <input type="number" id="workout-duration" placeholder="Duration (minutes)" min="5" max="300">
+        <button onclick="addWorkout()">Add Workout</button>
+        <div id="workout-list"></div>
+        <button onclick="navigateTo('workoutsPage')">Back to Workouts</button>
+        <button onclick="logoutUser()">Logout</button>
+    </div>
 </body>
 </html>
