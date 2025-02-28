@@ -113,6 +113,39 @@
                 navigateTo('loginPage');
             }
         });
+
+    
+    </script>
+
+    <script>
+        // Prevent back navigation
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+
+    <!-- טעינת JavaScript בסוף כדי למנוע שגיאות -->
+    <script>
+        document.getElementById("gender-toggle").addEventListener("change", function() {
+            const genderText = document.getElementById("gender-text");
+            genderText.textContent = this.checked ? "Female" : "Male";
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem('currentUser')) {
+                navigateTo('dashboardPage');
+            } else {
+                navigateTo('loginPage');
+            }
+        });
+
+        // Prevent back navigation
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+        
     </script>
     <script src="js/client.js"></script>
     <script src="js/network.js"></script>
