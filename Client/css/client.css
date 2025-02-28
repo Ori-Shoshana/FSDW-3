@@ -1,7 +1,10 @@
-/* סגנון בסיסי לדף */
+/* Basic page styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #7c270a;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-image: url('../images/pexels-leon-ardho-1552252.jpg');
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Makes the image stay fixed when scrolling */
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,17 +15,17 @@ body {
     color: white;
 }
 
-/* סגנון למחלקת hidden כדי להסתיר דפים */
+/* Hidden class to hide pages */
 .hidden {
     display: none;
 }
 
-/* סגנון לרקע */
+/* Background styling */
 .background {
     position: relative;
     width: 100%;
     height: 100vh;
-    background: url('../images/assortment-cinema-elements-red-background-with-copy-space_23-2148457848.avif') no-repeat center center/cover;
+    background: url('../images/pexels-leon-ardho-1552252.jpg') no-repeat center center/cover;
     animation: backgroundMove 20s linear infinite;
 }
 
@@ -35,7 +38,7 @@ body {
     }
 }
 
-/* סגנון לקופסה המרכזית */
+/* Central container styling */
 .container {
     background: white;
     padding: 20px;
@@ -45,7 +48,7 @@ body {
     text-align: center;
 }
 
-/* סגנון לשדות טופס */
+/* Form fields styling */
 input {
     width: 100%;
     padding: 8px;
@@ -60,19 +63,19 @@ input {
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.8);
-    padding: 40px; 
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     text-align: center;
-    width: 400px; 
-    max-width: 90%; 
+    width: 400px;
+    max-width: 90%;
 }
 
-/* הגדלת שדות הקלט */
+/* Enlarged form fields */
 .form input {
     display: block;
-    margin: 15px auto; 
-    padding: 12px; 
+    margin: 15px auto;
+    padding: 12px;
     width: 90%;
     max-width: 350px;
     font-size: 1.2em;
@@ -80,18 +83,23 @@ input {
     border-radius: 5px;
 }
 
-/* הגדלת הכפתור */
+/* Enlarged button */
 button, .btn {
     margin-top: 20px;
     width: 50%;
-    padding: 12px; 
-    font-size: 18px; 
+    padding: 12px;
+    font-size: 18px;
     font-weight: bold;
-    background: red;
+    background: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, font-size 0.3s;
 }
 
 button:hover, .btn:hover {
-    background: orangered;
+    background: #45A049;
     font-size: 20px;
 }
 
@@ -107,7 +115,7 @@ button:hover, .btn:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* סגנון לכותרת */
+/* Title styling */
 .title {
     justify-items: center;
     margin-bottom: 40px;
@@ -125,8 +133,7 @@ h1, p, #login-message {
 }
 
 #link:hover {
-    color: cornflowerblue; 
-    cursor: pointer;
+    color: cornflowerblue;
 }
 
 .selection-container {
@@ -139,7 +146,7 @@ h1, p, #login-message {
 .checkbox-container {
     display: flex;
     align-items: center;
-    gap: 5px; 
+    gap: 5px;
     margin-top: 10px;
 }
 
@@ -147,7 +154,7 @@ h1, p, #login-message {
     margin-right: 5px;
 }
 
-/* מסדר את התיבות כך שיהיו קומפקטיות */
+/* Compact checkboxes */
 .checkbox-container input, .radio-container input {
     margin-left: 5px;
 }
@@ -263,4 +270,173 @@ input:checked + .slider:before {
 
 .movie-buttons button i {
     font-size: 14px;
+}
+
+/* Dashboard Page */
+#dashboardPage {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    color: white;
+}
+
+#dashboardPage h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.workouts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.workout-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Workout Management Page */
+#workoutManagementPage {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    color: white;
+}
+
+#workoutManagementPage h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#workoutManagementPage input, #workoutManagementPage select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#workoutManagementPage .checkbox-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+#workoutManagementPage .checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#workoutManagementPage button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px;
+}
+
+#workoutManagementPage button:hover {
+    background-color: #0056b3;
+}
+
+#workoutManagementPage button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#workout-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.workout-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+    width: 200px;
+    text-align: center;
+}
+
+.workout-item img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.workout-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.workout-item p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.workout-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.workout-item button:hover {
+    background-color: #0056b3;
 }

@@ -3,11 +3,12 @@ const Network = {
 
         console.log(`Network: Sending ${method} request to ${url}`);
 
-        const randomValue = Math.random();  
-        if (randomValue < 0.5) { // השמטה בהסתברות של 10% עד 50%
-            callback({ status: 0, message: 'Failed to fetch' });
-            return;
-        }
+        // Remove the random failure simulation
+        // const randomValue = Math.random();  
+        // if (randomValue < 0.5) { // השמטה בהסתברות של 10% עד 50%
+        //     callback({ status: 0, message: 'Failed to fetch' });
+        //     return;
+        // }
 
         setTimeout(() => {
             if (url.startsWith('/api/workouts')) {

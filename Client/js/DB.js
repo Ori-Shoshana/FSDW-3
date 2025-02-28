@@ -29,7 +29,10 @@ const WorkoutsDB = {
 };
 
 const AuthDB = {
-    getUsers: () => JSON.parse(localStorage.getItem('users')) || [],
+    getUsers: () => {
+        const users = JSON.parse(localStorage.getItem('users'));
+        return Array.isArray(users) ? users : [];
+    },
 
     addUser: (user) => {
         const users = AuthDB.getUsers();
@@ -50,3 +53,4 @@ const AuthDB = {
         localStorage.setItem('users', JSON.stringify(users));
     },
 };
+
