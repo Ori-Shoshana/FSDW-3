@@ -76,11 +76,13 @@
         <h1>Workout Management System</h1>
         <input type="text" id="workout-name" placeholder="Enter workout name">
         <input type="number" id="workout-duration" placeholder="Enter duration (minutes)" min="10" max="180">
-        <select id="workout-intensity">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+        <select id="workout-intensity" required>
+            <option value="" disabled hidden selected>Choose intensity</option>
+            <option value="low intensity">Low intensity</option>
+            <option value="medium intensity">Medium intensity</option>
+            <option value="high intensity">High intensity</option>
         </select>
+        
         <input type="text" id="workout-image" placeholder="Enter link to the workout image" required>
         
         <label>Workout Category:</label>
