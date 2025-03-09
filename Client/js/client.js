@@ -96,7 +96,6 @@ function loadWorkouts() {
                     <p>Intensity: ${workout.intensity}</p>
                     <button onclick="deleteWorkout('${workout.id}')">Delete</button>
                     <button onclick="editWorkout('${workout.id}')">Edit</button>
-                    <button onclick="getWorkout('${workout.id}')">View</button>
                 `;
                 workoutsList.appendChild(workoutCard);
             });

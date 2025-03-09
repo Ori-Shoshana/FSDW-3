@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ניהול אימונים</title>
+    <title>Workout Management</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #workout-list { margin-top: 20px; }
@@ -34,7 +34,7 @@
             <input type="password" placeholder="Password" required>
             <input type="number" id="age" placeholder="Enter your age" min="10" max="120" required>
             
-            <!-- הוספת gender toggle -->
+            <!-- Gender toggle -->
             <div class="toggle-container">
                 <label class="toggle-label">Gender:</label>
                 <span id="gender-text">Male</span>
@@ -101,7 +101,7 @@
         <button onclick="logoutUser()">Logout</button>
     </div>
 
-    <!-- טעינת JavaScript בסוף כדי למנוע שגיאות -->
+    <!-- Load JavaScript at the end to prevent errors -->
     <script>
         document.getElementById("gender-toggle").addEventListener("change", function() {
             const genderText = document.getElementById("gender-text");
@@ -115,8 +115,6 @@
                 navigateTo('loginPage');
             }
         });
-
-    
     </script>
 
     <script>
@@ -127,28 +125,6 @@
         };
     </script>
 
-    <!-- טעינת JavaScript בסוף כדי למנוע שגיאות -->
-    <script>
-        document.getElementById("gender-toggle").addEventListener("change", function() {
-            const genderText = document.getElementById("gender-text");
-            genderText.textContent = this.checked ? "Female" : "Male";
-        });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            if (localStorage.getItem('currentUser')) {
-                navigateTo('dashboardPage');
-            } else {
-                navigateTo('loginPage');
-            }
-        });
-
-        // Prevent back navigation
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-        };
-        
-    </script>
     <script src="js/client.js"></script>
     <script src="js/network.js"></script>
     <script src="js/AuthServer.js"></script>
