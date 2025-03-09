@@ -10,12 +10,16 @@ class FXMLHttpRequest {
         this.onload = null;
     }
 
+    // this method is called by the client code
+    // it initializes the request and sends it
     open(method, url, async = true) {
         this.method = method;
         this.url = url;
         this.async = async;
     }
 
+    // this method is called by the client code
+    // it sends the request to the server
     send(data = null) {
         Network.sendRequest(this.method, this.url, data, (response) => {
             this.responseText = JSON.stringify(response);

@@ -10,13 +10,14 @@ function addWorkout() {
 
     const request = new FXMLHttpRequest();
     request.open('POST', '/api/workouts', true);
+
     request.onload = function() {
         const response = JSON.parse(request.responseText);
         if (response.status === 201 || response.status === 200) {
-            alert('האימון נוסף בהצלחה!');
+            alert('Workout added successfully');
             loadWorkouts();
         } else {
-            alert('שגיאה בהוספת האימון.');
+            alert('Error adding workout');
         }
     };
     
@@ -44,10 +45,10 @@ function deleteWorkout(id) {
     request.onload = function() {
         const response = JSON.parse(request.responseText);
         if (response.status === 201 || response.status === 200) {    
-            alert('האימון נמחק בהצלחה');
+            alert('Workout deleted successfully');
             loadWorkouts();
         } else {
-            alert('שגיאה בעת מחיקת האימון');
+            alert('Error deleting workout');
         }
     };
     request.send();
@@ -64,15 +65,15 @@ function getWorkout(id) {
             workoutsList.className = 'workout-card';
             workoutsList.innerHTML = `            
                 <h2>${workout.name}</h2>
-                <p>משך אימון: ${workout.duration} דקות</p>
-                <p>עצימות: ${workout.intensity}</p>
-                <button onclick="deleteWorkout('${workout.id}')">מחק</button>
-                <button onclick="editWorkout('${workout.id}')">עדכן</button>
+                <p>Duration: ${workout.duration} minutes</p>
+                <p>Intensity: ${workout.intensity}</p>
+                <button onclick="deleteWorkout('${workout.id}')">Delete</button>
+                <button onclick="editWorkout('${workout.id}')">Edit</button>
             `;
 
-            alert('האימון נטען בהצלחה');
+            alert('Workout loaded successfully');
         } else {
-            alert('שגיאה בעת טעינת האימון');
+            alert('Error loading workout');
         }
     };
     request.send();
@@ -91,17 +92,17 @@ function loadWorkouts() {
                 workoutCard.className = 'workout-card';
                 workoutCard.innerHTML = `
                     <h3>${workout.name}</h3>
-                    <p>משך אימון: ${workout.duration} דקות</p>
-                    <p>עצימות: ${workout.intensity}</p>
-                    <button onclick="deleteWorkout('${workout.id}')">מחק</button>
-                    <button onclick="editWorkout('${workout.id}')">עדכן</button>
-                    <button onclick="getWorkout('${workout.id}')">הצגת בלעדית</button>
+                    <p>Duration: ${workout.duration} minutes</p>
+                    <p>Intensity: ${workout.intensity}</p>
+                    <button onclick="deleteWorkout('${workout.id}')">Delete</button>
+                    <button onclick="editWorkout('${workout.id}')">Edit</button>
+                    <button onclick="getWorkout('${workout.id}')">View</button>
                 `;
                 workoutsList.appendChild(workoutCard);
             });
-            alert('האימונים נטענו בהצלחה');
+            alert('Workouts loaded successfully');
         } else {
-            alert('שגיאה בעת טעינת האימונים.');
+            alert('Error loading workouts');
         }
     };
     request.send();
@@ -113,27 +114,27 @@ function uploadWorkouts() {
         const id = Date.now().toString();
         const workouts = [
             {
-                name: "HIIT אימון אינטנסיבי",
+                name: "HIIT Intensive Workout",
                 duration: 30,
-                intensity: "גבוהה",
+                intensity: "High",
                 image: "https://example.com/hiit.jpg",
-                category: ["אירובי", "שריפת שומן"],
+                category: ["Cardio", "Fat Burning"],
                 id: id,
             },
             {
-                name: "אימון כוח",
+                name: "Strength Training",
                 duration: 45,
-                intensity: "בינונית",
+                intensity: "Medium",
                 image: "https://example.com/strength.jpg",
-                category: ["כוח", "משקולות"],
+                category: ["Strength", "Weights"],
                 id: id + 1,
             },
             {
-                name: "יוגה מרגיעה",
+                name: "Relaxing Yoga",
                 duration: 60,
-                intensity: "נמוכה",
+                intensity: "Low",
                 image: "https://example.com/yoga.jpg",
-                category: ["גמישות", "הרפיה"],
+                category: ["Flexibility", "Relaxation"],
                 id: id + 2,
             }
         ];
@@ -152,16 +153,38 @@ function uploadWorkouts() {
                 workoutCard.classList.add("workout-card");
                 workoutCard.innerHTML = `
                     <h3>${workout.name}</h3>
-                    <p>משך אימון: ${workout.duration} דקות</p>
-                    <p>עצימות: ${workout.intensity}</p>
-                    <button onclick="deleteWorkout('${workout.id}')">מחק</button>
-                    <button onclick="getWorkout('${workout.id}')">הצגת בלעדית</button>
+                    <p>Duration: ${workout.duration} minutes</p>
+                    <p>Intensity: ${workout.intensity}</p>
+                    <button onclick="deleteWorkout('${workout.id}')">Delete</button>
+                    <button onclick="getWorkout('${workout.id}')">View</button>
                 `;
                 workoutsList.appendChild(workoutCard);
             });
-            alert('האימונים נטענו בהצלחה');
+            alert('Workouts loaded successfully');
         } else {
-            alert('שגיאה בעת טעינת האימונים.');
+            alert('Error loading workouts');
+        }
+    };
+    request.send();
+}
+
+function editWorkout(id) {
+    const request = new FXMLHttpRequest();
+    request.open('GET', `/api/workouts/${id}`, true);
+    request.onload = function() {
+        const response = JSON.parse(request.responseText);
+        if (response.status === 201 || response.status === 200) {
+            const workout = response.message;
+            document.getElementById("workout-name").value = workout.name;
+            document.getElementById("workout-duration").value = workout.duration;
+            document.getElementById("workout-intensity").value = workout.intensity;
+            document.getElementById("workout-image").value = workout.image;
+            workout.category.forEach(category => {
+                document.getElementById(`category-${category}`).checked = true;
+            });
+            alert('Workout loaded successfully');
+        } else {
+            alert('Error loading workout');
         }
     };
     request.send();
