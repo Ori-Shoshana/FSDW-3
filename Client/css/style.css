@@ -1,189 +1,124 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
-* {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-body {
-    background-image: url('../images/pexels-leon-ardho-1552252.jpg');
-    background-size: cover; /* Ensures the image covers the entire screen */
-    background-position: center; /* Centers the image */
-    background-attachment: fixed; /* Makes the image stay fixed when scrolling */
-    margin: 0;
-    height: 100vh; /* Ensures the body covers the entire height of the viewport */
     display: flex;
-    justify-content: center; /* Horizontally centers the .wrapper */
-    align-items: center; /* Vertically centers the .wrapper */
-    color: #FFF; /* Ensure text color is consistent */
-    line-height: 1.6; /* Improved readability */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.wrapper {
-    max-width: 420px; /* Ensure max width for better responsiveness */
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Slightly darker background for better contrast */
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(65px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px; /* Slightly larger border radius */
-    padding: 40px; /* Increase padding for better spacing */
-    margin: 20px; /* Add margin for better spacing */
-}
-
-.wrapper h1 {
-    font-size: 32px; /* Slightly smaller font size */
-    margin-bottom: 20px; /* Add margin for spacing */
-    text-align: center;
-}
-
-.input-box {
-    position: relative;
-    width: 100%;
-    margin: 20px 0; /* Consistent margin */
-}
-
-.input-box input,
-.input-box textarea {
-    width: 100%;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px; /* Slightly smaller border radius */
-    font-size: 16px;
-    color: white;
-    padding: 15px; /* Consistent padding */
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.input-box input::placeholder,
-.input-box textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Lighter placeholder color */
-}
-
-.input-box i {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-}
-
-.wrapper .remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.remember-forgot label input {
-    accent-color: white;
-    margin-right: 3px;
-}
-
-.remember-forgot a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover {
-    text-decoration: underline;
-}
-
-.wrapper .btn {
-    width: 100%;
-    height: 50px; /* Consistent height */
-    background: #4CAF50; /* Professional button color */
-    border: none;
-    outline: none;
-    border-radius: 8px; /* Slightly smaller border radius */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #FFF; /* Ensure text color is white */
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
-    margin-top: 30px;
-}
-
-.btn:hover {
-    background-color: #45A049; /* Slightly darker hover color */
-}
-
-.wrapper .register-link {
-    font-size: 14.5px;
-    text-align: center;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.register-link p a:hover {
-    text-decoration: underline;
-}
-
-.back-button {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    text-decoration: none;
-    color: white;
-    font-size: 14px; /* Slightly larger font size */
-    font-weight: 500; /* Slightly lighter font weight */
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 12px; /* Adjusted padding */
-    border: 1px solid white; /* Thinner border */
-    border-radius: 12px; /* Adjusted border radius */
-    transition: all 0.3s ease-in-out;
-}
-
-.back-button:hover {
+#app {
     background: white;
-    color: black;
-    transform: scale(1.05); /* Slightly smaller zoom-in effect */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtler shadow */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
 }
 
-/* Mobile Media Query */
-@media screen and (max-width: 650px) {
-    .wrapper {
-        width: 90%; /* Adjusted width */
-        padding: 30px; /* Adjusted padding */
-    }
-
-    .wrapper h1 {
-        font-size: 24px; /* Adjusted font size */
-    }
-
-    .input-box input,
-    .input-box textarea {
-        font-size: 14px; /* Adjusted font size */
-        padding: 12px; /* Adjusted padding */
-    }
-
-    .btn {
-        height: 45px; /* Adjusted height */
-        font-size: 14px; /* Adjusted font size */
-    }
-
-    .back-button {
-        font-size: 12px; /* Adjusted font size */
-        padding: 6px 10px; /* Adjusted padding */
-    }
+nav {
+    margin-bottom: 20px;
 }
 
-@media screen and (max-height: 565px) {
-    .wrapper {
-        height: 80%;
-        padding: 20px; 
-        backdrop-filter: blur(55px);
-        overflow-y: auto; /* Enable vertical scrolling within the wrapper */
-    }
+nav button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
+nav button:hover {
+    background: #0056b3;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-container input,
+.form-container select,
+.form-container button {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container button {
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background: #218838;
+}
+
+.message {
+    color: red;
+    display: none;
+    margin-top: 10px;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+    text-align: center;
+}
+
+.dashboard-container h2 {
+    margin-bottom: 20px;
+}
+
+.dashboard-container p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.dashboard-container button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dashboard-container button:hover {
+    background: #c82333;
+}
+
+#workout-list {
+    margin-top: 20px;
+}
+
+.workout-card {
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.workout-card h3 {
+    margin: 0;
+}
+
+.workout-card p {
+    margin: 5px 0;
+}
+
+.workout-card button {
+    margin-right: 5px;
+}

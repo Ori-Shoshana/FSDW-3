@@ -125,6 +125,7 @@ function logoutUser() {
     xhr.send();
 }
 
+
 // אתחול דף לפי סטטוס המשתמש
 document.addEventListener("DOMContentLoaded", function() {
     const currentUser = localStorage.getItem("currentUser");
