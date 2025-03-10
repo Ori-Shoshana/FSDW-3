@@ -69,7 +69,21 @@
         <div class="workouts-grid" id="workoutsGrid"></div>
         <button onclick="navigateTo('workoutManagementPage')">Manage Workouts</button>
         <button onclick="logoutUser()">Logout</button>
-    </div>    
+    </div>
+
+    <!-- Workout Template -->
+<template id="workout-template">
+    <div class="workout-item">
+        <h3 class="workout-name"></h3>
+        <p class="workout-duration"></p>
+        <p class="workout-intensity"></p>
+        <img class="workout-image" src="" alt="Workout Image">
+        <div class="workout-categories"></div>
+        <button class="delete-button">Delete</button>
+        <button class="edit-button">Edit</button>
+    </div>
+</template> 
+   
 
     <!-- Workout Management Page -->
     <div id="workoutManagementPage" class="form-container page hidden">
@@ -95,9 +109,9 @@
             <label for="flexibility">Flexibility</label>
         </div>
         
-        <button onclick="addWorkout()">Add Workout</button>
+        <button id="add-workout-button" onclick="addWorkout()">Add Workout</button>
         <div id="workout-list"></div>
-        <button onclick="navigateTo('dashboardPage')">Back to Workouts</button>
+        <button onclick="navigateTo('dashboardPage')">Back to Dashboard</button>
         <button onclick="logoutUser()">Logout</button>
     </div>
 

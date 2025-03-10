@@ -3,7 +3,7 @@ const WorkoutsDB = {
 
     addWorkout: (workout) => {
         const workouts = WorkoutsDB.getWorkouts();
-        workout.id = Date.now().toString(); // מזהה ייחודי
+        workout.id = Date.now().toString(); // Unique ID
         workouts.push(workout);
         localStorage.setItem('workouts', JSON.stringify(workouts));
     },
@@ -26,6 +26,12 @@ const WorkoutsDB = {
         );
         localStorage.setItem('workouts', JSON.stringify(workouts));
     },
+
+    // New function to get workouts by user ID
+    getWorkoutsByUserId: (userId) => {
+        const workouts = WorkoutsDB.getWorkouts();
+        return workouts.filter(workout => workout.userId === userId);
+    }
 };
 
 const AuthDB = {

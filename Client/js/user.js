@@ -6,15 +6,14 @@ function navigateTo(section) {
         return;
     }
 
-    if (section === "dashboardPage") {
-        document.getElementById("background").style.display = "none";
-        // ניתן להוסיף כאן פונקציה לטעינת אימונים בעתיד, כמו loadWorkouts();
-    } else {
-        document.getElementById("background").style.display = "block";
-    }
-
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
     page.classList.remove("hidden");
+
+    if (section === "dashboardPage") {
+        loadDashboardWorkouts(); // Load workouts into the dashboard
+    } else if (section === "workoutManagementPage") {
+        loadWorkouts(); // Load workouts into the management page
+    }
 }
 
 // מחכה לטעינת העמוד ומגדיר ניתוב מתאים
@@ -62,7 +61,6 @@ function updateMessage(messageElement, message) {
     messageElement.style.display = "block";
 }
 
-// פונקציה להתחברות משתמשים
 function loginUser(event) {
     event.preventDefault();
 
@@ -80,7 +78,7 @@ function loginUser(event) {
         if (xhr.status === 403 && response.remainingTime) {
             handleLoginResponse(response);
         } else if (xhr.status === 200 && response.success) {
-            localStorage.setItem("currentUser", response.username);
+            localStorage.setItem("currentUser", response.username); // Store the username as userId
             messageElement.style.display = "none";
             navigateTo("dashboardPage");
         } else {
@@ -135,3 +133,23 @@ document.addEventListener("DOMContentLoaded", function() {
         navigateTo("loginPage");
     }
 });
+
+
+function addWorkoutToList(workout) {
+    const template = document.getElementById('workout-template').content.cloneNode(true);
+    template.querySelector('.workout-name').textContent = workout.name;
+    template.querySelector('.workout-duration').textContent = `Duration: ${workout.duration} minutes`;
+    template.querySelector('.workout-intensity').textContent = `Intensity: ${workout.intensity}`;
+    template.querySelector('.workout-image').src = workout.image;
+    
+    const categoriesContainer = template.querySelector('.workout-categories');
+    workout.categories.forEach(category => {
+        const categorySpan = document.createElement('span');
+        categorySpan.textContent = category;
+        categoriesContainer.appendChild(categorySpan);
+    });
+
+    // Append the workout to the dashboardPage container
+    document.getElementById('workoutsGrid').appendChild(template);
+}
+
