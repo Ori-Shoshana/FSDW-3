@@ -124,25 +124,6 @@ function logoutUser() {
     xhr.send();
 }
 
-
-function addWorkoutToList(workout) {
-    const template = document.getElementById('workout-template').content.cloneNode(true);
-    template.querySelector('.workout-name').textContent = workout.name;
-    template.querySelector('.workout-duration').textContent = `Duration: ${workout.duration} minutes`;
-    template.querySelector('.workout-intensity').textContent = `Intensity: ${workout.intensity}`;
-    template.querySelector('.workout-image').src = workout.image;
-    
-    const categoriesContainer = template.querySelector('.workout-categories');
-    workout.categories.forEach(category => {
-        const categorySpan = document.createElement('span');
-        categorySpan.textContent = category;
-        categoriesContainer.appendChild(categorySpan);
-    });
-    
-    // Append the workout to the dashboardPage container
-    document.getElementById('workoutsGrid').appendChild(template);
-}
-
 // מחכה לטעינת העמוד ומגדיר ניתוב מתאים
 document.addEventListener('DOMContentLoaded', () => {
     navigateTo(location.hash.slice(1) || 'login');

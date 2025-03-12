@@ -4,6 +4,7 @@ const AuthServer = {
     handleRequest: (method, url, data, callback) => {
         const users = AuthDB.getUsers();
 
+        // רישום משתמש חדש
         if (url.endsWith('/register') && method === 'POST') {
             const user = JSON.parse(data);
             const usersArray = Object.values(users);
@@ -21,6 +22,7 @@ const AuthServer = {
             }
         } 
         
+        // התחברות משתמש קיים
         else if (url.endsWith('/login') && method === 'POST') {
             const user = JSON.parse(data);
             const usersArray = Object.values(users);
@@ -55,6 +57,7 @@ const AuthServer = {
                     membershipType: validUser.membershipType, // סוג מנוי
                     fitnessGoal: validUser.fitnessGoal // מטרת כושר
                 });
+                // כאן ניתן להוסיף ערכים נוספים מהמשתמש
             } else {
                 failedAttempts[user.username] = failedAttempts[user.username] || { count: 0, lockUntil: 0 };
                 failedAttempts[user.username].count++;
@@ -78,7 +81,7 @@ const AuthServer = {
                 }
             }
         } 
-        
+        // התנתקות משתמש
         else if (url.endsWith('/logout') && method === 'POST') {
             callback({ status: 200, message: 'Logout successful', success: true });
         }
