@@ -59,4 +59,3 @@ const AuthDB = {
         localStorage.setItem('users', JSON.stringify(users));
     },
 };
-

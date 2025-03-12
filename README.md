@@ -1,100 +1,202 @@
-# Fitness Tracker - Hevy-Like Workout Routine
+# Workout Management System
 
-## 📁 Project Structure
-This project is a Full-Stack JavaScript application that follows a client-server architecture with simulated communication using Fake AJAX (FAJAX) and data storage in Local Storage.
+## Overview
+The **Workout Management System** is a web application designed to help users manage their workouts. Users can register, log in, and create, edit, delete, and view their workouts. Each user has their own set of workouts, and workouts are only visible to the user who created them.
 
+The application is built using **HTML**, **CSS**, and **JavaScript**, with data persistence handled by **localStorage**. It simulates a server-side environment using a mock AJAX request system (`FXMLHttpRequest`).
+
+---
+
+## Features
+- **User Authentication**:
+  - Register a new account with a username, email, password, age, gender, fitness goal, and membership type.
+  - Log in with a username and password.
+  - Log out securely.
+
+- **Workout Management**:
+  - Add new workouts with details such as name, duration, intensity, image, and categories (e.g., Cardio, Strength, Flexibility).
+  - Edit existing workouts.
+  - Delete workouts.
+  - View a list of workouts on the dashboard.
+
+- **User-Specific Workouts**:
+  - Each user can only see and manage their own workouts.
+
+- **Responsive Design**:
+  - The application is designed to work on both desktop and mobile devices.
+
+---
+
+## Technologies Used
+- **Frontend**:
+  - HTML
+  - CSS
+  - JavaScript
+
+- **Mock Server**:
+  - `FXMLHttpRequest` for simulating AJAX requests.
+  - `localStorage` for data persistence.
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+- A modern web browser (e.g., Chrome, Firefox, Edge).
+- A code editor (e.g., Visual Studio Code).
+
+### Steps to Run the Project
+1. **Download the Project**:
+   - Clone or download the project files to your local machine.
+
+2. **Open the Project**:
+   - Open the project folder in your code editor.
+
+3. **Run the Application**:
+   - Open the `index.html` file in your web browser.
+   - The application will load, and you can start using it.
+
+---
+
+## Usage
+
+### 1. **Registration**
+- Click on the "Sign up here" link on the login page.
+- Fill in the registration form with your details:
+  - Username
+  - Email
+  - Password
+  - Age
+  - Gender (Male/Female)
+  - Fitness Goal (Weight Loss, Muscle Gain, Endurance)
+  - Membership Type (Basic, Premium, VIP)
+- Click "Sign Up" to create your account.
+
+### 2. **Login**
+- Enter your username and password on the login page.
+- Click "Login" to access your dashboard.
+
+### 3. **Dashboard**
+- The dashboard displays a list of your workouts.
+- You can:
+  - Add a new workout by clicking "Manage Workouts."
+  - Log out by clicking the "Logout" button.
+
+### 4. **Manage Workouts**
+- **Add a Workout**:
+  - Fill in the workout details:
+    - Name
+    - Duration (in minutes)
+    - Intensity (Low, Medium, High)
+    - Image URL
+    - Categories (Cardio, Strength, Flexibility)
+  - Click "Add Workout" to save the workout.
+
+- **Edit a Workout**:
+  - Click the "Edit" button next to a workout.
+  - Update the workout details.
+  - Click "Save Workout" to save the changes.
+
+- **Delete a Workout**:
+  - Click the "Delete" button next to a workout.
+  - Confirm the deletion.
+
+---
+
+## File Structure
 ```
-fitness-tracker/
-│── index.html        # Homepage with login & workout interface
-│── styles.css        # CSS styles
-│── scripts/
-│   ├── main.js       # Handles UI logic & event listeners
-│   ├── api.js        # Fake AJAX requests
-│   ├── storage.js    # Manages Local Storage
-│── data/
-│   ├── workouts.json # Sample workout data
-│── server/
-│   ├── fake-server.js # Simulated backend
-│── README.md         # Project documentation
+workout-management-system/
+│
+├── index.html            # Main HTML file for the application
+├── css/                  # CSS files
+│   └── client.css        # Custom styles for the application
+│
+├── js/                   # JavaScript files
+│   ├── client.js         # Frontend logic for workout management
+│   ├── user.js           # User authentication and navigation logic
+│   ├── DB.js             # Database simulation using localStorage
+│   ├── server.js         # Mock server logic for handling requests
+│   ├── fajax.js          # Mock AJAX request system (FXMLHttpRequest)
+│   ├── network.js        # Network layer for handling requests
+│   └── AuthServer.js     # Authentication server logic
+│
+└── README.md             # Project documentation
 ```
 
 ---
 
-## 🔹 Features
-1. **User Authentication**: Login & Signup page.
-2. **Workout Logging**: Add exercises, set reps, weight, duration.
-3. **Workout History**: Display past workouts in a table.
-4. **Data Persistence**: Workouts saved in **Local Storage**.
-5. **Graphical Progress Tracking**: Use `Chart.js` for visualizing progress.
-6. **Fake API Communication**: Simulated backend using FAJAX.
+## Code Examples
 
----
+### Adding a Workout
+```javascript
+function addWorkout() {
+    const name = document.getElementById("workout-name").value;
+    const duration = document.getElementById("workout-duration").value;
+    const intensity = document.getElementById("workout-intensity").value;
+    const image = document.getElementById("workout-image").value;
+    const categories = Array.from(document.querySelectorAll("#workout-category input[name='categories']:checked"))
+        .map(checkbox => checkbox.value);
 
-## 📡 Data Flow
-1. **User Logs a Workout** ➝ `main.js` sends request to `api.js`.
-2. **API Sends Fake Request to `fake-server.js`** ➝ Server returns a response.
-3. **Workout is Stored in Local Storage (`storage.js`)**.
-4. **Workouts Displayed in UI (Table & Graph).**
+    const currentUser = localStorage.getItem("currentUser");
 
----
+    const workoutData = {
+        name,
+        duration,
+        intensity,
+        image,
+        categories,
+        userId: currentUser
+    };
 
-## 📝 File Descriptions
-### **1️⃣ `index.html` – Homepage**
-Contains the HTML structure of the site, including:
-- A **form** for adding new workouts.
-- A **table** displaying workout history.
-- A **graph** showing workout progress.
-  
-### **2️⃣ `styles.css` – Site Styling**
-- Defines the overall appearance of the site.
-- Styles tables, forms, and buttons.
-  
-### **3️⃣ `scripts/main.js` – UI Management**
-- Handles user input for workouts.
-- Displays workouts in the table.
-- Sends requests to the fake server via `api.js`.
-  
-### **4️⃣ `scripts/api.js` – Fake AJAX (FAJAX)**
-- Simulates communication with the backend.
-- Handles `GET`, `POST`, `PUT`, and `DELETE` requests with mock responses.
-  
-### **5️⃣ `scripts/storage.js` – Local Storage Management**
-- Saves workouts in Local Storage.
-- Loads them when the user reopens the website.
-  
-### **6️⃣ `data/workouts.json` – Sample Data**
-Contains example workout entries:
-```json
-[
-  {"id": 1, "date": "2025-02-01", "type": "Running", "duration": 30, "calories": 300},
-  {"id": 2, "date": "2025-02-02", "type": "Cycling", "duration": 45, "calories": 400}
-]
+    const request = new FXMLHttpRequest();
+    request.open('POST', '/api/workouts', true);
+    request.onload = function() {
+        const response = JSON.parse(request.responseText);
+        if (response.status === 201) {
+            alert('Workout added successfully');
+            loadDashboardWorkouts();
+        }
+    };
+    request.send(JSON.stringify(workoutData));
+}
 ```
-  
-### **7️⃣ `server/fake-server.js` – Simulated Backend**
-- Listens for requests from `api.js`.
-- Sends mock responses in `JSON` format.
-- Supports fetching, adding, updating, and deleting workouts.
+
+### Filtering Workouts by User
+```javascript
+function loadDashboardWorkouts() {
+    const currentUser = localStorage.getItem("currentUser");
+    const request = new FXMLHttpRequest();
+    request.open('GET', '/api/workouts', true);
+
+    request.onload = function() {
+        const response = JSON.parse(request.responseText);
+        const userWorkouts = response.message.filter(workout => workout.userId === currentUser);
+
+        userWorkouts.forEach(workout => {
+            // Display workouts in the dashboard
+        });
+    };
+    request.send();
+}
+```
 
 ---
 
-## 📌 Next Steps
-1. **Set Up `index.html`** with workout tracking form.
-2. **Create `main.js`** to handle UI interactions.
-3. **Implement `api.js`** for Fake API requests.
-4. **Build `fake-server.js`** for simulated backend.
-5. **Add `Chart.js`** for progress tracking.
+## Troubleshooting
+- **Issue: Workouts are not displayed**:
+  - Ensure the `userId` is correctly stored in `localStorage` after logging in.
+  - Check the browser console for errors.
+
+- **Issue: Cannot add or edit workouts**:
+  - Verify that all required fields are filled in the workout form.
+  - Check the browser console for errors.
 
 ---
 
-## 🔧 Technologies Used
-- **HTML, CSS, JavaScript (Front-End)**
-- **Fake AJAX (FAJAX) for API simulation**
-- **Local Storage for data persistence**
-- **JSON for structured data**
-- **Chart.js (or similar) for workout graphs**
+## Future Enhancements
+- Add a backend server (e.g., Node.js with Express) for persistent data storage.
+- Implement user roles (e.g., Admin, Trainer) with additional features.
+- Add workout tracking and progress charts.
 
----
 
-### 🚀 Want to get started? Load `index.html` in your browser and start tracking your workouts! 💪
-
+Enjoy managing your workouts with the **Workout Management System**! 💪
