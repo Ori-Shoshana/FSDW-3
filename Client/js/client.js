@@ -34,6 +34,8 @@ function addWorkout() {
         }
     };
 
+    // by the id of the logged-in user to the workout data before sending it to the server
+    // than the workout will be associated with the user who created it
     const workoutData = JSON.stringify({
         name: name,
         duration: duration,
@@ -66,7 +68,6 @@ function deleteWorkout(id) {
 
 function loadDashboardWorkouts() {
     const currentUser = localStorage.getItem("currentUser");
-    console.log("Current User:", currentUser); // Log the current user
 
     if (!currentUser) {
         alert("You must be logged in to view workouts.");
@@ -76,17 +77,14 @@ function loadDashboardWorkouts() {
     const request = new FXMLHttpRequest();
     request.open('GET', '/api/workouts', true);
 
-    request.onload = function() {
+    request.onload = function () {
         const response = JSON.parse(request.responseText);
-        console.log("All Workouts:", response.message); // Log all workouts
-
         if (response.status === 200 || response.status === 201) {
             const workoutsGrid = document.getElementById('workoutsGrid');
-            workoutsGrid.innerHTML = '';
+            workoutsGrid.innerHTML = ''; // Clear the grid before loading new workouts
 
             // Filter workouts by userId
             const userWorkouts = response.message.filter(workout => workout.userId === currentUser);
-            console.log("Filtered Workouts:", userWorkouts); // Log filtered workouts
 
             userWorkouts.forEach(workout => {
                 const template = document.getElementById('workout-template').content.cloneNode(true);
@@ -168,6 +166,59 @@ function loadWorkouts() {
             alert('Error loading workouts');
         }
     };
+    request.send();
+}
+
+function searchWorkouts() {
+    const searchTerm = document.getElementById("search-input").value.toLowerCase();
+    const currentUser = localStorage.getItem("currentUser");
+
+    if (!currentUser) {
+        alert("You must be logged in to search workouts.");
+        return;
+    }
+
+    const request = new FXMLHttpRequest();
+    request.open('GET', '/api/workouts', true);
+
+    request.onload = function() {
+        const response = JSON.parse(request.responseText);
+        if (response.status === 200 || response.status === 201) {
+            const workoutsGrid = document.getElementById('workoutsGrid');
+            workoutsGrid.innerHTML = '';
+
+            // Filter workouts by userId and search term
+            const userWorkouts = response.message.filter(workout => 
+                workout.userId === currentUser && workout.name.toLowerCase().includes(searchTerm)
+            );
+
+            userWorkouts.forEach(workout => {
+                const template = document.getElementById('workout-template').content.cloneNode(true);
+                template.querySelector('.workout-name').textContent = workout.name;
+                template.querySelector('.workout-duration').textContent = `Duration: ${workout.duration} minutes`;
+                template.querySelector('.workout-intensity').textContent = `Intensity: ${workout.intensity}`;
+                template.querySelector('.workout-image').src = workout.image;
+
+                const categoriesContainer = template.querySelector('.workout-categories');
+                workout.category.forEach(category => {
+                    const categorySpan = document.createElement('span');
+                    categorySpan.textContent = category;
+                    categoriesContainer.appendChild(categorySpan);
+                });
+
+                const deleteButton = template.querySelector('.delete-button');
+                deleteButton.onclick = () => deleteWorkout(workout.id);
+
+                const editButton = template.querySelector('.edit-button');
+                editButton.onclick = () => editWorkout(workout.id);
+
+                workoutsGrid.appendChild(template);
+            });
+        } else {
+            alert('Error loading workouts');
+        }
+    };
+
     request.send();
 }
 

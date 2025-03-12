@@ -16,15 +16,11 @@ function navigateTo(section) {
     }
 }
 
-// מחכה לטעינת העמוד ומגדיר ניתוב מתאים
-document.addEventListener('DOMContentLoaded', () => {
-    navigateTo(location.hash.slice(1) || 'login');
-});
-
-// מאזין לשינוי כתובת ה-URL
-window.addEventListener('hashchange', () => {
-    navigateTo(location.hash.slice(1) || 'login');
-});
+// פונקציה לעדכון הודעה למשתמש
+function updateMessage(messageElement, message) {
+    messageElement.innerHTML = message;
+    messageElement.style.display = "block";
+}
 
 // פונקציה לרישום משתמשים
 function registerUser(event) {
@@ -55,11 +51,6 @@ function registerUser(event) {
     xhr.send(JSON.stringify(requestData));
 }
 
-// פונקציה לעדכון הודעה למשתמש
-function updateMessage(messageElement, message) {
-    messageElement.innerHTML = message;
-    messageElement.style.display = "block";
-}
 
 function loginUser(event) {
     event.preventDefault();
@@ -79,8 +70,13 @@ function loginUser(event) {
             handleLoginResponse(response);
         } else if (xhr.status === 200 && response.success) {
             localStorage.setItem("currentUser", response.username); // Store the username as userId
+
+            // Clear the workoutsGrid immediately
+            const workoutsGrid = document.getElementById('workoutsGrid');
+            workoutsGrid.innerHTML = '';
+
             messageElement.style.display = "none";
-            navigateTo("dashboardPage");
+            navigateTo('dashboardPage');
         } else {
             updateMessage(messageElement, response.message);
         }
@@ -115,6 +111,11 @@ function logoutUser() {
         const response = JSON.parse(xhr.responseText);
         if (xhr.status === 200 && response.success) {
             localStorage.removeItem("currentUser");
+
+            // Clear the workoutsGrid immediately
+            const workoutsGrid = document.getElementById('workoutsGrid');
+            workoutsGrid.innerHTML = '';
+
             navigateTo("loginPage");
         } else {
             alert("Logout failed. Please try again.");
@@ -122,17 +123,6 @@ function logoutUser() {
     };
     xhr.send();
 }
-
-
-// אתחול דף לפי סטטוס המשתמש
-document.addEventListener("DOMContentLoaded", function() {
-    const currentUser = localStorage.getItem("currentUser");
-    if (currentUser) {
-        navigateTo("dashboardPage");
-    } else {
-        navigateTo("loginPage");
-    }
-});
 
 
 function addWorkoutToList(workout) {
@@ -148,8 +138,35 @@ function addWorkoutToList(workout) {
         categorySpan.textContent = category;
         categoriesContainer.appendChild(categorySpan);
     });
-
+    
     // Append the workout to the dashboardPage container
     document.getElementById('workoutsGrid').appendChild(template);
 }
 
+// מחכה לטעינת העמוד ומגדיר ניתוב מתאים
+document.addEventListener('DOMContentLoaded', () => {
+    navigateTo(location.hash.slice(1) || 'login');
+});
+
+// מאזין לשינוי כתובת ה-URL
+window.addEventListener('hashchange', () => {
+    navigateTo(location.hash.slice(1) || 'login');
+});
+
+document.getElementById("search-input").addEventListener("input", function() {
+    searchWorkouts();
+});
+
+// אתחול דף לפי סטטוס המשתמש
+document.addEventListener("DOMContentLoaded", function () {
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+        // Clear the workoutsGrid immediately
+        const workoutsGrid = document.getElementById('workoutsGrid');
+        workoutsGrid.innerHTML = '';
+
+        navigateTo("dashboardPage");
+    } else {
+        navigateTo("loginPage");
+    }
+});

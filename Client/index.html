@@ -64,25 +64,33 @@
     </div>
 
     <!-- Dashboard Page -->
+    <!-- Dashboard Page -->
     <div id="dashboardPage" class="page hidden">
         <h1>My Workout Dashboard 💪</h1>
+        
+        <!-- Add search input and button -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search workouts by name...">
+            <button onclick="searchWorkouts()">Search</button>
+        </div>
+        
         <div class="workouts-grid" id="workoutsGrid"></div>
         <button onclick="navigateTo('workoutManagementPage')">Manage Workouts</button>
         <button onclick="logoutUser()">Logout</button>
     </div>
 
     <!-- Workout Template -->
-<template id="workout-template">
-    <div class="workout-item">
-        <h3 class="workout-name"></h3>
-        <p class="workout-duration"></p>
-        <p class="workout-intensity"></p>
-        <img class="workout-image" src="" alt="Workout Image">
-        <div class="workout-categories"></div>
-        <button class="delete-button">Delete</button>
-        <button class="edit-button">Edit</button>
-    </div>
-</template> 
+    <template id="workout-template">
+        <div class="workout-item">
+            <h3 class="workout-name"></h3>
+            <p class="workout-duration"></p>
+            <p class="workout-intensity"></p>
+            <img class="workout-image" src="" alt="Workout Image">
+            <div class="workout-categories"></div>
+            <button class="delete-button">Delete</button>
+            <button class="edit-button">Edit</button>
+        </div>
+    </template> 
    
 
     <!-- Workout Management Page -->
