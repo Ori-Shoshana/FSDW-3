@@ -402,11 +402,3 @@ function resetWorkoutForm() {
     editingWorkoutId = null; // Reset the editing ID
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('currentUser')) {
-        navigateTo('dashboardPage');
-    } else {
-        navigateTo('loginPage');
-    }
-    loadWorkouts();
-});
