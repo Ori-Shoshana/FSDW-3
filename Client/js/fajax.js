@@ -3,7 +3,6 @@ class FXMLHttpRequest {
         this.method = '';
         this.url = '';
         this.async = true;
-        this.headers = {};
         this.responseText = '';
         this.status = 0;  // נוסיף שדה סטטוס
         this.success = false; // נוסיף שדה הצלחה
